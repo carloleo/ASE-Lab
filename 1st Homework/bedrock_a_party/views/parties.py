@@ -51,8 +51,8 @@ def loaded_parties():
             must be called  via either GET or DELETE
             id must refer to an existing party
     brief: 
-            retrieve id party if called via GET 
-            delete id party if called via DELETE
+            retrieve a party if called via GET 
+            delete a party if called via DELETE
     param:
             id: party id
 '''
@@ -69,7 +69,7 @@ def single_party(id):
         result = jsonify(_LOADED_PARTIES[id].serialize())
 
     elif 'DELETE' == request.method:
-        #deleting id party
+        #deleting party
         _LOADED_PARTIES.pop(id)
 
     return result
@@ -80,7 +80,7 @@ def single_party(id):
             must be called  via  GET 
             id must refer to an existing party
     brief:
-            retrieve food list of id party
+            retrieve food list of a party
     param: 
             id: party id
 '''
@@ -92,7 +92,7 @@ def get_foodlist(id):
     exists_party(id)
 
     if 'GET' == request.method:
-        #retrieve id party food list
+        #retrieving  food list
         food_list = _LOADED_PARTIES[id].get_food_list()
         #marshaling food list into js format 
         result = jsonify(foodlist = food_list.serialize())
@@ -103,10 +103,10 @@ def get_foodlist(id):
     require: 
               must be called via either POST or DELETE
               id must refer to an existing party
-              user must be invited to id party
+              user must be invited to the party
     brief: 
-            add item to food list id party if users is a guest and it is called via POST
-            delete item to food list id party if users is a guest and it is called via DELETE
+            add item to food list of a party if users is a guest and it is called via POST
+            delete item to food list of a party if users is a guest and it is called via DELETE
     param:
             id: party id
             user: guest of party
@@ -117,7 +117,7 @@ def edit_foodlist(id, user, item):
     global _LOADED_PARTIES
     #verifying if id refers to an existing party
     exists_party(id)
-    #retrieving id party
+    #retrieving party
     party = _LOADED_PARTIES[id]
     serialized_party = party.serialize()
     result = ""
